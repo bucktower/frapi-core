@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.mindrot.BCrypt;
 import org.springframework.data.annotation.Id;
 
 public class User {
@@ -26,10 +27,9 @@ public class User {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.password = password; // need to encrypt this
-
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     try {
+      SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
       this.dateOfBirth = sdf.parse(dob);
     } catch (ParseException pe) { System.out.println("Date not correctly formatted.");}
   }
@@ -37,6 +37,9 @@ public class User {
   public String getFirstName() { return firstName; }
   public String getLastName() { return lastName; }
   public String getUserName() { return userName; }
+  public String getEmail() { return email; }
+  public Date getDateOfBirth() { return dateOfBirth; }
+  public String getPassword() { return password; }
 
   public void setFirstName(String newName) { firstName = newName; }
   public void setLastName(String newName) { lastName = newName; }
@@ -44,6 +47,7 @@ public class User {
     firstName = newFirst;
     lastName = newLast;
   }
+  public void setPassword(String password) { this.password = password; }
 
   @Override
   public String toString() {
