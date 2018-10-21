@@ -1,0 +1,10 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>frapi-core</servlet-name>
+        <servlet-class>frapi.Application</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>frapi-core</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+</web-app>
